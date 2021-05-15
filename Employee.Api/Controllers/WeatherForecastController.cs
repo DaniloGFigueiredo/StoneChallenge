@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Employee.Api.Controllers
 {
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
