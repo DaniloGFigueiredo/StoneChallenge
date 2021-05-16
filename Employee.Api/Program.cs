@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Employee.Api
+namespace EmployeeManagement.Api
 {
     public class Program
     {

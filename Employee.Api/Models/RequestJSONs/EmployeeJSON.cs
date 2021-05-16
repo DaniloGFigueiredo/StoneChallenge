@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 
-namespace Employee.Domain.JSONs
+namespace EmployeeManagement.Api.ResquestJSONs
 {
     public class EmployeeJSON
     {

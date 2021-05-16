@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Employee.Domain\EmployeeManagement.Domain.csproj" />
+    <ProjectReference Include="..\Employee.Service\EmployeeManagement.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

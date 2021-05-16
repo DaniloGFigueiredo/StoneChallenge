@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Employee.Domain.Enums
+namespace EmployeeManagement.Domain.Enums
 {
     public class Enum
     {
