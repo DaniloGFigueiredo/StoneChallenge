@@ -1,3 +1,4 @@
+using EmployeeManagement.Api.Configuration;
 using EmployeeManagement.Api.ResquestJSONs;
 using EmployeeManagement.Domain.Entities;
 using EmployeeManagement.Service;
@@ -22,19 +23,16 @@ namespace EmployeeManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {           
-
             services.AddControllers();
+
+          //  services.AddAutoMapper(typeof(Startup));
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Employee.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EmployeeManagement.Api", Version = "v1" });
             });
 
-            ServiceConfiguration.ConfigureServices(services, Configuration);
-       
-
-            services.AddAutoMapper(c=> {
-                c.CreateMap<EmployeeJSON, Employee>();
-            });
+            services.ResolveDependencies(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +42,7 @@ namespace EmployeeManagement.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EmployeeManagement.Api v1"));
             }
 
             app.UseHttpsRedirection();

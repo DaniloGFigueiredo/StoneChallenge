@@ -21,14 +21,5 @@ namespace EmployeeManagement.Domain.Entities
         public decimal GrossSalary { get; set; }
         public DateTime AdmissionDate { get; set; }
 
-        public Employee(long registrationNumber, string name, EmployeeArea area, string role, decimal grossSalary, DateTime admissionDate )
-        {
-            RegistrationNumber = registrationNumber;
-            Name = name;
-            Area = area;
-            Role = role;
-            GrossSalary = grossSalary;
-            AdmissionDate = admissionDate;
-        }
     }
 }

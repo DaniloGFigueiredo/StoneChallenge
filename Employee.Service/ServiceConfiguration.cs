@@ -8,14 +8,16 @@ namespace EmployeeManagement.Service
 {
     public static class ServiceConfiguration
     {
-        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureServices (this IServiceCollection services, IConfiguration configuration)
         {         
             services.Configure<EmployeeRepositorySettings>(
             configuration.GetSection(nameof(EmployeeRepositorySettings)));
 
             services.AddSingleton<IEmployeeRepositorySettings>(sp => sp.GetRequiredService<IOptions<EmployeeRepositorySettings>>().Value);
 
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+            return services;
         }
     }
 }

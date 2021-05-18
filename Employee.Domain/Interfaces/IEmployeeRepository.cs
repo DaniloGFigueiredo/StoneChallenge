@@ -10,7 +10,8 @@ namespace EmployeeManagement.Domain.Interfaces
     public interface IEmployeeRepository
     {
         List<Employee> GetAllEmployees();
-        Employee CreateEmployee(Employee employee);
-        void DeleteEmployee(Employee employee);
+        List<Employee> CreateManyEmployees(List<Employee> employees);
+        Employee GetEmployeeByRegistrationNumberAndName(long registrationNumber, string name);
+        void DeleteEmployeeByRegistrationNumberAndName(long registrationNumber, string name);
     }
 }
