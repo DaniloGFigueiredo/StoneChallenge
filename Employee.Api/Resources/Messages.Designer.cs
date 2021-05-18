@@ -61,7 +61,7 @@ namespace EmployeeManagement.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to É necessário informar a matricula do funcionário..
+        ///   Looks up a localized string similar to É necessário informar a matricula de todos os funcionarios e o valor precisa ser maior que zero.
         /// </summary>
         public static string EXC001 {
             get {
@@ -70,7 +70,7 @@ namespace EmployeeManagement.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to É necessário informar o nome do funcionário .
+        ///   Looks up a localized string similar to É necessário informar os nomes dos funcionários. .
         /// </summary>
         public static string EXC002 {
             get {
@@ -79,7 +79,7 @@ namespace EmployeeManagement.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to É necessário informar a área do funcionário {0}..
+        ///   Looks up a localized string similar to É necessário informar as áreas dos funcionários..
         /// </summary>
         public static string EXC003 {
             get {
@@ -88,7 +88,7 @@ namespace EmployeeManagement.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to É necessário informar o cargo do funcionário {0}..
+        ///   Looks up a localized string similar to É necessário informar os cargos do funcionarios..
         /// </summary>
         public static string EXC004 {
             get {
@@ -97,7 +97,7 @@ namespace EmployeeManagement.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to É necessario informar o salário bruto do funcionário {0}..
+        ///   Looks up a localized string similar to É necessario informar os salários bruto dos funcionários..
         /// </summary>
         public static string EXC005 {
             get {
@@ -106,7 +106,7 @@ namespace EmployeeManagement.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to É necessário infromar a data de admissão do funcionário {0}..
+        ///   Looks up a localized string similar to É necessário infromar as datas de admissão dos funcionários..
         /// </summary>
         public static string EXC006 {
             get {

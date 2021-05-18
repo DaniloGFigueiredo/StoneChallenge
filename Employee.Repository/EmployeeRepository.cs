@@ -12,34 +12,32 @@ namespace EmployeeManagement.Repository
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly IMongoCollection<Employee> _employeeCollection;
-        public EmployeeRepository (IEmployeeRepositorySettings settings)
+        public EmployeeRepository(IEmployeeRepositorySettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
             _employeeCollection = database.GetCollection<Employee>(settings.EmployeeCollectionName);
         }
-        public Employee CreateEmployee(Employee employee)
+        public List<Employee> CreateManyEmployees(List<Employee> employees)
         {
             try
             {
-                _employeeCollection.InsertOne(employee);
+                _employeeCollection.InsertMany(employees);
 
-                return employee;
+                return employees;
             }
-            catch 
+            catch
             {
                 throw;
             }
-           ;
         }
-
-        public void DeleteEmployee(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Employee> GetAllEmployees() => _employeeCollection.Find(e => true).ToList();  
-
+        public Employee GetEmployeeByRegistrationNumberAndName(long registrationNumber, string name) => _employeeCollection.Find(e =>
+        (e.RegistrationNumber == registrationNumber) &&
+        (e.Name == name)).FirstOrDefault();
+        public List<Employee> GetAllEmployees() => _employeeCollection.Find(e => true).ToList();
+        public void DeleteEmployeeByRegistrationNumberAndName(long registrationNumber, string name) => _employeeCollection.FindOneAndDelete(e =>
+         (e.RegistrationNumber == registrationNumber) &&
+         (e.Name == name));
     }
 }
