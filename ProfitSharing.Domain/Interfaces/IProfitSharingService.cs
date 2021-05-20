@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProfitSharing.Domain.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ProfitSharing.Domain.Interfaces
 {
     public interface IProfitSharingService
     {
-        Task CalculateProfitSharing(decimal avaiableSum);
+        Task<ProfitSharingResultDTO> CalculateProfitSharing(decimal avaiableSum);
     }
 }

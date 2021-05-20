@@ -3,6 +3,7 @@ using ProfitSharing.Domain.DTOs;
 using ProfitSharing.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,12 +19,13 @@ namespace ProfitSharing.Service
         {
             _employeeManagementClient = employeeManagementClient;
         }
-        public async Task CalculateProfitSharing(decimal avaiableSum)
+        public async Task<ProfitSharingResultDTO> CalculateProfitSharing(decimal avaiableSum)
         {
             List<EmployeeDTO> employees = await _employeeManagementClient.GetAllEmployees();
             List<ProfitSharingProfileDTO> profitSharingProfileList = CreateProfitSharinfProfile(employees);
             ProfitSharingResultDTO profitSharingResultDTO = CalculateTotalToShare(profitSharingProfileList, avaiableSum);
 
+            return profitSharingResultDTO;
             //segundo 
         }
 
@@ -128,6 +130,7 @@ namespace ProfitSharing.Service
             try
             {
                 decimal idealTotalAmount = profitSharingProfileList.Sum(psp => psp.IndividualProfitSharingSum);
+                decimal percentualDifference = ((((avaiableSum * 100) / idealTotalAmount) - 100)) / -100;
 
                 ProfitSharingResultDTO profitSharingResult = new ProfitSharingResultDTO();
                 if (idealTotalAmount <= avaiableSum)
@@ -135,26 +138,26 @@ namespace ProfitSharing.Service
                     foreach (ProfitSharingProfileDTO profitSharingProfile in profitSharingProfileList)
                     {
                         ProfitSharingParticipant profitSharingParticipant = new ProfitSharingParticipant();
-                        profitSharingParticipant.ResultingIndividualProfitSharingSum = profitSharingProfile.IndividualProfitSharingSum;
+                        profitSharingParticipant.ResultingIndividualProfitSharingSum = profitSharingProfile.IndividualProfitSharingSum.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                         profitSharingParticipant.Name = profitSharingProfile.Name;
                         profitSharingParticipant.RegistrationNumber = profitSharingProfile.RegistrationNumber;
                         profitSharingResult.ProfitSharingParticipantList.Add(profitSharingParticipant);
-                    }
-                    return profitSharingResult;
+                    }               
                 }
                 else
-                {
-                    decimal differencePercentual = ((((avaiableSum * 100) / idealTotalAmount) - 100))/-100;
+                {                   
                     foreach (ProfitSharingProfileDTO profitSharingProfile in profitSharingProfileList)
                     {
                         ProfitSharingParticipant profitSharingParticipant = new ProfitSharingParticipant();
-                        profitSharingParticipant.ResultingIndividualProfitSharingSum = profitSharingProfile.IndividualProfitSharingSum - (profitSharingProfile.IndividualProfitSharingSum * differencePercentual);
+                        Decimal ResultingSum = profitSharingProfile.IndividualProfitSharingSum - (profitSharingProfile.IndividualProfitSharingSum * percentualDifference);
+                        profitSharingParticipant.ResultingIndividualProfitSharingSum = ResultingSum.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                         profitSharingParticipant.Name = profitSharingProfile.Name;
                         profitSharingParticipant.RegistrationNumber = profitSharingProfile.RegistrationNumber;
                         profitSharingResult.ProfitSharingParticipantList.Add(profitSharingParticipant);
-                    }
-                    return profitSharingResult;
+                    }                   
                 }
+                    
+                return profitSharingResult;
             }
             catch
             {
@@ -163,3 +166,4 @@ namespace ProfitSharing.Service
         }
     }
 }
+//string.Format(C,CultureInfo.GetCultureInfo("pt-BR"), "R$ {0:#,###.##}", ResultingSum);

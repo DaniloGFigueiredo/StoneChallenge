@@ -10,6 +10,6 @@ namespace ProfitSharing.Domain.DTOs
     {
         public string RegistrationNumber { get; set; }
         public string Name { get; set; }
-        public decimal ResultingIndividualProfitSharingSum { get; set; }
+        public string ResultingIndividualProfitSharingSum { get; set; }
     }
 }
