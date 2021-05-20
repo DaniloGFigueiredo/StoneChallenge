@@ -25,8 +25,8 @@ namespace EmployeeManagement.Api.ModelMappers
                     Employee employee = new Employee();
                     employee.RegistrationNumber = employeeJSON.RegistrationNumber;
                     employee.Name = employeeJSON.Name;
-                    employee.Role = employeeJSON.Role;
-                    employee.AdmissionDate = employeeJSON.AdmissionDate;
+                    employee.Role = employeeJSON.Role;                 
+                    employee.AdmissionDate = employeeJSON.AdmissionDate.Date;
                     employeeJSON.GrossSalary =Regex.Replace(employeeJSON.GrossSalary, @"[R$ .]", "");
                     employee.GrossSalary = Convert.ToDecimal(Regex.Replace(employeeJSON.GrossSalary, @"[,]", "."));
                     employeeJSON.Area = Regex.Replace(employeeJSON.Area, @"\s", "").ToUpper();

@@ -6,6 +6,7 @@ using EmployeeManagement.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmployeeManagement.Api.Controllers
 {
@@ -23,7 +24,7 @@ namespace EmployeeManagement.Api.Controllers
         }
   
        [HttpPost("AddEmployees")]
-        public ActionResult Post(List<AddEmployeesJSON> employeesJSON)
+        public async Task <IActionResult> AddEmployees (List<AddEmployeesJSON> employeesJSON)
         {
             try
             {
@@ -31,7 +32,7 @@ namespace EmployeeManagement.Api.Controllers
                 if (ModelState.IsValid)
                 {
                     List<Employee> employees = _mapper.MapAddEmployeesJSONListToEmployeeList(employeesJSON);
-                    employees = _employeeService.AddMultipleEmployees(employees);
+                    employees = await _employeeService.AddMultipleEmployees(employees);
                     return Ok(employees);
                 }
                 else
@@ -46,7 +47,7 @@ namespace EmployeeManagement.Api.Controllers
         }
 
         [HttpPost("RemoveEmployees")]
-        public ActionResult Post(List<RemoveEmployeesJSON> removeEmployeesJSONs)
+        public async Task <IActionResult> RemoveEmployees(List<RemoveEmployeesJSON> removeEmployeesJSONs)
         {
             try
             {
@@ -54,8 +55,8 @@ namespace EmployeeManagement.Api.Controllers
                 if (ModelState.IsValid)
                 {
                     Dictionary<long,string> registrationNumbersAndNames = _mapper.MapRemoveEmployeesJSONToDictionary(removeEmployeesJSONs);
-                     _employeeService.RemoveMultipleEmployees(registrationNumbersAndNames);
-                    return Ok(registrationNumbersAndNames);
+                    List<Employee> removedEmployees = await _employeeService.RemoveMultipleEmployees(registrationNumbersAndNames);
+                    return Ok(removedEmployees);
                 }
                 else
                 {
@@ -70,12 +71,12 @@ namespace EmployeeManagement.Api.Controllers
 
         [HttpGet]
         [Route("GetAllEmployees")]
-        public ActionResult GetAllEmployees()
+        public async Task<IActionResult> GetaAllEmployees()
         {
             try
             {
-                List<Employee> AllEmployees = _employeeService.GetAllEmployees();
-                return Ok(AllEmployees);
+                List<Employee> AllEmployees = await _employeeService.GetAllEmployees();
+                return  Ok(AllEmployees);
             }
             catch
             {

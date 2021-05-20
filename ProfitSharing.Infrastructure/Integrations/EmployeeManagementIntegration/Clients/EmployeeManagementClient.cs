@@ -13,11 +13,11 @@ namespace ProfitSharing.Infrastructure.Integrations.Clients
     {
         private HttpClient _client;
         private readonly ILogger<EmployeeManagementClient> _logger;
-        private string URL;
+        private string URI;
         private string AccessKey;
         public EmployeeManagementClient(IEmployeeManagementClientSettings settings, HttpClient client, ILogger<EmployeeManagementClient>logger)
         {
-            URL = settings.URL;
+            URI = settings.URI;
             AccessKey = settings.AccessKey;
             _client = client;
             _logger = logger;
@@ -26,7 +26,7 @@ namespace ProfitSharing.Infrastructure.Integrations.Clients
         {
             try
             {
-                using var responseStream = await _client.GetStreamAsync(URL);
+                using var responseStream = await _client.GetStreamAsync(URI);
                 List<EmployeeDTO> GetAllEmployees = await JsonSerializer.DeserializeAsync<List<EmployeeDTO>>(responseStream);
                 
                 return  GetAllEmployees;

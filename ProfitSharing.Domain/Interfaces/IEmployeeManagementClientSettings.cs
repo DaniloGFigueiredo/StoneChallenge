@@ -8,7 +8,7 @@ namespace ProfitSharing.Domain.Interfaces
 {
     public interface IEmployeeManagementClientSettings
     {
-        string URL { get; set; }
+        string URI { get; set; }
         string AccessKey { get; set; }
     }
 }

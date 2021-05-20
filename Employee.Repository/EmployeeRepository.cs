@@ -19,11 +19,11 @@ namespace EmployeeManagement.Repository
 
             _employeeCollection = database.GetCollection<Employee>(settings.EmployeeCollectionName);
         }
-        public List<Employee> CreateManyEmployees(List<Employee> employees)
+        public async Task< List<Employee>> CreateManyEmployees(List<Employee> employees)
         {
             try
             {
-                _employeeCollection.InsertMany(employees);
+              await  _employeeCollection.InsertManyAsync(employees);
 
                 return employees;
             }
@@ -32,11 +32,12 @@ namespace EmployeeManagement.Repository
                 throw;
             }
         }
-        public Employee GetEmployeeByRegistrationNumberAndName(long registrationNumber, string name) => _employeeCollection.Find(e =>
+        public async Task <Employee> GetEmployeeByRegistrationNumberAndName(long registrationNumber, string name) => await  _employeeCollection.Find( e =>
         (e.RegistrationNumber == registrationNumber) &&
-        (e.Name == name)).FirstOrDefault();
-        public List<Employee> GetAllEmployees() => _employeeCollection.Find(e => true).ToList();
-        public void DeleteEmployeeByRegistrationNumberAndName(long registrationNumber, string name) => _employeeCollection.FindOneAndDelete(e =>
+        (e.Name == name)).FirstOrDefaultAsync();
+
+        public async Task <List<Employee>> GetAllEmployees() =>  await _employeeCollection.Find ( e => true).ToListAsync();
+        public async Task<Employee> DeleteEmployeeByRegistrationNumberAndName(long registrationNumber, string name) => await _employeeCollection.FindOneAndDeleteAsync(e =>
          (e.RegistrationNumber == registrationNumber) &&
          (e.Name == name));
     }

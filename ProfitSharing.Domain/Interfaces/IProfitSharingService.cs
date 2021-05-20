@@ -8,6 +8,6 @@ namespace ProfitSharing.Domain.Interfaces
 {
     public interface IProfitSharingService
     {
-        Task CalculateProfiSharing();
+        Task CalculateProfitSharing(decimal avaiableSum);
     }
 }

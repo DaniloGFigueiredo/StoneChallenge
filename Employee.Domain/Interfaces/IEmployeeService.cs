@@ -9,8 +9,8 @@ namespace EmployeeManagement.Domain.Interfaces
 {
     public interface IEmployeeService
     {
-        List<Employee> AddMultipleEmployees(List<Employee> employees);
-        void RemoveMultipleEmployees(Dictionary<long, string> RegistrationNumberAndName);
-       List<Employee> GetAllEmployees();
+        Task<List<Employee>> AddMultipleEmployees(List<Employee> employees);
+        Task<List<Employee>> RemoveMultipleEmployees(Dictionary<long, string> RegistrationNumbersAndNames);
+        Task<List<Employee>> GetAllEmployees();
     }
 }
