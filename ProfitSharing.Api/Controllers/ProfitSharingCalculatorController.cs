@@ -25,8 +25,8 @@ namespace ProfitSharing.Api.Controllers
         [HttpPost("CalculateProfitSharing")]
         public async Task<IActionResult> Post(CalculateProfitSharingJSON calculateProfitSharingJSON)
         {
-            ProfitSharingResultDTO profitSharingResultDTO = await _profitSharingService.CalculateProfitSharing(calculateProfitSharingJSON.AvailablelSum);
-            return null;
+            ProfitSharingResultDTO profitSharingResultDTO = await _profitSharingService.CalculateProfitSharing(calculateProfitSharingJSON.AvailableSum);
+            return Ok(profitSharingResultDTO);
         }
     }
 }

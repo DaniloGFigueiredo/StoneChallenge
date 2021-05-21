@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Employee.Api\EmployeeManagement.Api.csproj" />
     <ProjectReference Include="..\ProfitSharing.Domain\ProfitSharing.Domain.csproj" />
     <ProjectReference Include="..\ProfitSharing.Service\ProfitSharing.Service.csproj" />
   </ItemGroup>

@@ -26,7 +26,6 @@ namespace ProfitSharing.Service
             ProfitSharingResultDTO profitSharingResultDTO = CalculateTotalToShare(profitSharingProfileList, avaiableSum);
 
             return profitSharingResultDTO;
-            //segundo 
         }
 
         private List<ProfitSharingProfileDTO> CreateProfitSharinfProfile (List<EmployeeDTO> employees)
@@ -123,17 +122,15 @@ namespace ProfitSharing.Service
             profitSharingProfile.IndividualProfitSharingSum = (((employee.GrossSalary*profitSharingProfile.TimeWeight)+(employee.GrossSalary*profitSharingProfile.AreaWeight))/profitSharingProfile.SalaryWeight)* months;
         }
 
-
-        private ProfitSharingResultDTO CalculateTotalToShare (List<ProfitSharingProfileDTO> profitSharingProfileList, decimal avaiableSum)
+        private ProfitSharingResultDTO CalculateTotalToShare (List<ProfitSharingProfileDTO> profitSharingProfileList, decimal availableSum)
         {
-
             try
             {
                 decimal idealTotalAmount = profitSharingProfileList.Sum(psp => psp.IndividualProfitSharingSum);
-                decimal percentualDifference = ((((avaiableSum * 100) / idealTotalAmount) - 100)) / -100;
+                decimal percentualDifference = ((((availableSum * 100) / idealTotalAmount) - 100)) / -100;
 
                 ProfitSharingResultDTO profitSharingResult = new ProfitSharingResultDTO();
-                if (idealTotalAmount <= avaiableSum)
+                if (idealTotalAmount <= availableSum)
                 {
                     foreach (ProfitSharingProfileDTO profitSharingProfile in profitSharingProfileList)
                     {
@@ -142,21 +139,31 @@ namespace ProfitSharing.Service
                         profitSharingParticipant.Name = profitSharingProfile.Name;
                         profitSharingParticipant.RegistrationNumber = profitSharingProfile.RegistrationNumber;
                         profitSharingResult.ProfitSharingParticipantList.Add(profitSharingParticipant);
-                    }               
+                    }
+                    profitSharingResult.SharedSum = idealTotalAmount.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    profitSharingResult.BalanceSum = (availableSum - idealTotalAmount).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                 }
                 else
-                {                   
+                {
+                    List<decimal> resultingSumList = new List<decimal>();
                     foreach (ProfitSharingProfileDTO profitSharingProfile in profitSharingProfileList)
                     {
                         ProfitSharingParticipant profitSharingParticipant = new ProfitSharingParticipant();
-                        Decimal ResultingSum = profitSharingProfile.IndividualProfitSharingSum - (profitSharingProfile.IndividualProfitSharingSum * percentualDifference);
-                        profitSharingParticipant.ResultingIndividualProfitSharingSum = ResultingSum.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                        Decimal individualResultingSum = profitSharingProfile.IndividualProfitSharingSum - (profitSharingProfile.IndividualProfitSharingSum * percentualDifference);
+                        profitSharingParticipant.ResultingIndividualProfitSharingSum = individualResultingSum.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                         profitSharingParticipant.Name = profitSharingProfile.Name;
                         profitSharingParticipant.RegistrationNumber = profitSharingProfile.RegistrationNumber;
                         profitSharingResult.ProfitSharingParticipantList.Add(profitSharingParticipant);
-                    }                   
+                        resultingSumList.Add(individualResultingSum);
+                    }
+                    decimal totalResultingSum = resultingSumList.Sum(sum => sum);
+
+                    profitSharingResult.SharedSum = totalResultingSum.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                    profitSharingResult.BalanceSum = (availableSum - totalResultingSum).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                 }
-                    
+                profitSharingResult.TotalAvailableSum = availableSum.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                profitSharingResult.TotalParticipants = profitSharingResult.ProfitSharingParticipantList.Count();
+
                 return profitSharingResult;
             }
             catch
@@ -166,4 +173,3 @@ namespace ProfitSharing.Service
         }
     }
 }
-//string.Format(C,CultureInfo.GetCultureInfo("pt-BR"), "R$ {0:#,###.##}", ResultingSum);
