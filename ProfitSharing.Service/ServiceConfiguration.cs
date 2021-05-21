@@ -18,9 +18,9 @@ namespace ProfitSharing.Service
             services.AddHttpClient<IEmployeeManagementClient, EmployeeManagementClient>().AddTransientHttpErrorPolicy(
             p => p.WaitAndRetryAsync(new[]
             {
-                TimeSpan.FromSeconds(10),
-                TimeSpan.FromSeconds(20),
-                TimeSpan.FromSeconds(30)
+                TimeSpan.FromSeconds(3),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(15)
             })); ;
           
             return services;         

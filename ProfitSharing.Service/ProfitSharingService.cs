@@ -21,11 +21,18 @@ namespace ProfitSharing.Service
         }
         public async Task<ProfitSharingResultDTO> CalculateProfitSharing(decimal avaiableSum)
         {
-            List<EmployeeDTO> employees = await _employeeManagementClient.GetAllEmployees();
-            List<ProfitSharingProfileDTO> profitSharingProfileList = CreateProfitSharinfProfile(employees);
-            ProfitSharingResultDTO profitSharingResultDTO = CalculateTotalToShare(profitSharingProfileList, avaiableSum);
+            try
+            {
+                List<EmployeeDTO> employees = await _employeeManagementClient.GetAllEmployees();
+                List<ProfitSharingProfileDTO> profitSharingProfileList = CreateProfitSharinfProfile(employees);
+                ProfitSharingResultDTO profitSharingResultDTO = CalculateTotalToShare(profitSharingProfileList, avaiableSum);
 
-            return profitSharingResultDTO;
+                return profitSharingResultDTO;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         private List<ProfitSharingProfileDTO> CreateProfitSharinfProfile (List<EmployeeDTO> employees)

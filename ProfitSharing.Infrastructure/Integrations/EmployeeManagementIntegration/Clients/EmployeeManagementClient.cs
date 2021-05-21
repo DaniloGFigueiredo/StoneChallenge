@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProfitSharing.Infrastructure.Integrations.Clients
@@ -26,10 +27,16 @@ namespace ProfitSharing.Infrastructure.Integrations.Clients
         {
             try
             {
-                using var responseStream = await _client.GetStreamAsync(URI);
+                using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(25));
+                using var responseStream = await _client.GetStreamAsync(URI, cancellationTokenSource.Token);
                 List<EmployeeDTO> GetAllEmployees = await JsonSerializer.DeserializeAsync<List<EmployeeDTO>>(responseStream);
                 
                 return  GetAllEmployees;
+            }
+            catch (TaskCanceledException ce)
+            {
+                _logger.LogError(ce, $"O tempo de espera não pode ser maior que 25 segundos e portanto a requisição foi finalizada");
+                return null;
             }
             catch (Exception e)
             {
