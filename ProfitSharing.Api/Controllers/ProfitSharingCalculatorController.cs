@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProfitSharing.Api.Models.RequestJSONs;
+using ProfitSharing.Domain.DTOs;
+using ProfitSharing.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +15,18 @@ namespace ProfitSharing.Api.Controllers
     [ApiController]
     public class ProfitSharingCalculatorController : ControllerBase
     {
-        [HttpPost("CalculateProfitSharing")]
-        public ActionResult Post(CalculateProfitSharingJSON calculateProfitSharingJSON)
+        private readonly IProfitSharingService _profitSharingService;
+        public ProfitSharingCalculatorController(IProfitSharingService profitSharingService)
         {
+            _profitSharingService = profitSharingService;
+        }
 
-            return Ok();
+
+        [HttpPost("CalculateProfitSharing")]
+        public async Task<IActionResult> Post(CalculateProfitSharingJSON calculateProfitSharingJSON)
+        {
+            ProfitSharingResultDTO profitSharingResultDTO = await _profitSharingService.CalculateProfitSharing(calculateProfitSharingJSON.AvailableSum);
+            return Ok(profitSharingResultDTO);
         }
     }
 }

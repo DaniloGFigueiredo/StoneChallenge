@@ -15,19 +15,19 @@ namespace EmployeeManagement.Service
         {
             _employeeRepository = employeeRepository;
         }
-        public List<Employee> AddMultipleEmployees(List<Employee> employees)
+        public async Task<List<Employee>> AddMultipleEmployees(List<Employee> employees)
         {
             try
             {
                 foreach (Employee employee in employees)
                 {
-                    Employee employeeInDB = _employeeRepository.GetEmployeeByRegistrationNumberAndName(employee.RegistrationNumber, employee.Name);
+                    Employee employeeInDB = await _employeeRepository.GetEmployeeByRegistrationNumberAndName(employee.RegistrationNumber, employee.Name);
                     if (employeeInDB != null)
                     {
                         throw new Exception("Funcionario " + employee.Name + " Matricula: " + employee.RegistrationNumber + " já cadastrado");
                     }
                 }
-                _employeeRepository.CreateManyEmployees(employees);
+                await _employeeRepository.CreateManyEmployees(employees);
             }
             catch
             {
@@ -35,30 +35,34 @@ namespace EmployeeManagement.Service
             }
             return employees;
         }
-        public void RemoveMultipleEmployees(Dictionary <long,string> RegistrationNumbersAndNames)
+        public async Task<List<Employee>> RemoveMultipleEmployees(Dictionary<long, string> RegistrationNumbersAndNames)
         {
             try
             {
+                List<Employee> deletedEmployees = new List<Employee>();
+
                 foreach (var item in RegistrationNumbersAndNames)
                 {
-                    Employee employeeInDB = _employeeRepository.GetEmployeeByRegistrationNumberAndName(item.Key, item.Value);
+                    Employee employeeInDB = await _employeeRepository.GetEmployeeByRegistrationNumberAndName(item.Key, item.Value);
                     if (employeeInDB == null)
                     {
                         throw new Exception("Funcionario " + item.Value + " com matricula " + item.Key + " não cadastrado");
                     }
-                    _employeeRepository.DeleteEmployeeByRegistrationNumberAndName(item.Key, item.Value);
+                    Employee deletedEmployee = await _employeeRepository.DeleteEmployeeByRegistrationNumberAndName(item.Key, item.Value);
+                    deletedEmployees.Add(deletedEmployee);
                 }
+                return deletedEmployees;
             }
             catch
             {
                 throw;
             }
         }
-        public List<Employee> GetAllEmployees()
+        public async Task<List<Employee>> GetAllEmployees()
         {
             try
             {
-                List<Employee> employees = _employeeRepository.GetAllEmployees();
+                List<Employee> employees = await _employeeRepository.GetAllEmployees();
                 return employees;
             }
             catch

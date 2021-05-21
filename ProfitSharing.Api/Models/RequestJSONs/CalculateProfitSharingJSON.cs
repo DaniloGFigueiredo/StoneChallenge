@@ -1,5 +1,4 @@
-﻿using EmployeeManagement.Api.Resources;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -7,8 +6,8 @@ namespace ProfitSharing.Api.Models.RequestJSONs
 {
     public class CalculateProfitSharingJSON
     {
-        [Range(0, double.MaxValue, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "EXC001")]
+        [Range(0, double.MaxValue, ErrorMessage = "Não é possível mandar valores negativos")]
         [JsonPropertyName("total_disponibilizado")]
-        public decimal AvailablelSum { get; set; }
+        public decimal AvailableSum { get; set; }
     }
 }
