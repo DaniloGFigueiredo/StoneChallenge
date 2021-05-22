@@ -8,7 +8,7 @@ namespace EmployeeManagement.Service
 {
     public static class ServiceConfiguration
     {
-        public static IServiceCollection ConfigureServices (this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureRepositoryServices (this IServiceCollection services, IConfiguration configuration)
         {         
             services.Configure<EmployeeRepositorySettings>(
             configuration.GetSection(nameof(EmployeeRepositorySettings)));

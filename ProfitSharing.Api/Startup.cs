@@ -35,6 +35,10 @@ namespace ProfitSharing.Api
             });
            
             services.ResolveDependencies(Configuration);
+
+            services.AddHealthChecks();
+
+            services.AddLoggingConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +61,9 @@ namespace ProfitSharing.Api
             {
                 endpoints.MapControllers();
             });
+            app.UseLoggingConfiguration();
+
+            app.UseHealthChecks("/api/hc");
         }
     }
 }

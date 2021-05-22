@@ -1,7 +1,4 @@
 using EmployeeManagement.Api.Configuration;
-using EmployeeManagement.Api.ResquestJSONs;
-using EmployeeManagement.Domain.Entities;
-using EmployeeManagement.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,17 +19,19 @@ namespace EmployeeManagement.Api
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {           
+        {
             services.AddControllers();
-
-          //  services.AddAutoMapper(typeof(Startup));
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EmployeeManagement.Api", Version = "v1" });
             });
+  
+            services.AddLoggingConfiguration();
 
             services.ResolveDependencies(Configuration);
+
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +54,10 @@ namespace EmployeeManagement.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseLoggingConfiguration();
+
+            app.UseHealthChecks("/api/hc");
         }
     }
 }

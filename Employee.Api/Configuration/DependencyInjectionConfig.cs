@@ -12,7 +12,7 @@ namespace EmployeeManagement.Api.Configuration
         {          
             services.AddScoped <IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeManagerMapper, EmployeeManagerMapper>();
-            services.ConfigureServices(configuration);
+            services.ConfigureRepositoryServices(configuration);
             return services;
         }
     }
