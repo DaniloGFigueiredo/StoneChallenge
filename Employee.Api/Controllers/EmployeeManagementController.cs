@@ -3,6 +3,7 @@ using EmployeeManagement.Api.Models.RequestJSONs;
 using EmployeeManagement.Api.ResquestJSONs;
 using EmployeeManagement.Domain.Entities;
 using EmployeeManagement.Domain.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,8 +12,9 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Api.Controllers
 {
-    [ApiConventionType(typeof(DefaultApiConventions))]
-    [Route("[controller]")]
+
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class EmployeeManagementController : ControllerBase
     {
@@ -25,8 +27,12 @@ namespace EmployeeManagement.Api.Controllers
             _mapper = employeeManagerMapper;
             _logger = logger;
         }
-  
-       [HttpPost("AddEmployees")]
+
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("AddEmployees")]
         public async Task <IActionResult> AddEmployees (List<AddEmployeesJSON> employeesJSON)
         {
             try
@@ -39,18 +45,21 @@ namespace EmployeeManagement.Api.Controllers
                     return Ok(employees);
                 }
                 else
-                {
-                    
+                {                 
                     return BadRequest(employeesJSON);
                 }           
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500,ex.Message);
+                return StatusCode(500,"Ocorreu um erro interno");//todo: mudar para resource
             }
         }
 
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("RemoveEmployees")]
         public async Task <IActionResult> RemoveEmployees(List<RemoveEmployeesJSON> removeEmployeesJSONs)
         {
@@ -71,10 +80,12 @@ namespace EmployeeManagement.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, ex.Message);//todo: mudar para resource
             }
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         [Route("GetAllEmployees")]
         public async Task<IActionResult> GetaAllEmployees()

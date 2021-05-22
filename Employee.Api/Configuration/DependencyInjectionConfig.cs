@@ -3,6 +3,8 @@ using EmployeeManagement.Domain.Interfaces;
 using EmployeeManagement.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace EmployeeManagement.Api.Configuration
 {
@@ -13,6 +15,7 @@ namespace EmployeeManagement.Api.Configuration
             services.AddScoped <IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeManagerMapper, EmployeeManagerMapper>();
             services.ConfigureRepositoryServices(configuration);
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerOptionsConfig>();
             return services;
         }
     }
