@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -72,10 +73,6 @@ namespace ProfitSharing.Api.Configuration
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            var apiDescription = context.ApiDescription;
-
-            operation.Deprecated = apiDescription.IsDeprecated();
-
             if (operation.Parameters == null)
             {
                 return;
@@ -83,14 +80,30 @@ namespace ProfitSharing.Api.Configuration
 
             foreach (var parameter in operation.Parameters)
             {
-                var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
+                var description = context.ApiDescription
+                    .ParameterDescriptions
+                    .First(p => p.Name == parameter.Name);
+
+                var routeInfo = description.RouteInfo;
+
+                operation.Deprecated = OpenApiOperation.DeprecatedDefault;
 
                 if (parameter.Description == null)
                 {
                     parameter.Description = description.ModelMetadata?.Description;
                 }
 
-                parameter.Required |= description.IsRequired;
+                if (routeInfo == null)
+                {
+                    continue;
+                }
+
+                if (parameter.In != ParameterLocation.Path && parameter.Schema.Default == null)
+                {
+                    parameter.Schema.Default = new OpenApiString(routeInfo.DefaultValue.ToString());
+                }
+
+                parameter.Required |= !routeInfo.IsOptional;
             }
         }
     }

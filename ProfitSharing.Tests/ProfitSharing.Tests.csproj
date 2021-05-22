@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-    <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,10 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Employee.Api\EmployeeManagement.Api.csproj" />
-    <ProjectReference Include="..\Employee.Domain\EmployeeManagement.Domain.csproj" />
-    <ProjectReference Include="..\Employee.Repository\EmployeeManagement.Repository.csproj" />
-    <ProjectReference Include="..\Employee.Service\EmployeeManagement.Service.csproj" />
+    <ProjectReference Include="..\ProfitSharing.Domain\ProfitSharing.Domain.csproj" />
+    <ProjectReference Include="..\ProfitSharing.Service\ProfitSharing.Service.csproj" />
   </ItemGroup>
 
 </Project>
