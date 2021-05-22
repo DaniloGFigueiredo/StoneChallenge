@@ -23,7 +23,7 @@ namespace ProfitSharing.Infrastructure.Integrations.Clients
             _client = client;
             _logger = logger;
         }
-        public async Task <List<EmployeeDTO>> GetAllEmployees()
+        public async Task <List<EmployeeDTO>> GetAllEmployees()//todo: tentar colocar o timout
         {
             try
             {

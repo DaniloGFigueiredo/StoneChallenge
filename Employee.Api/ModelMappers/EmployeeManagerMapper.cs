@@ -20,8 +20,6 @@ namespace EmployeeManagement.Api.ModelMappers
 
             foreach (AddEmployeesJSON employeeJSON in employeeListJSON)
             {
-                try
-                {
                     Employee employee = new Employee();
                     employee.RegistrationNumber = employeeJSON.RegistrationNumber;
                     employee.Name = employeeJSON.Name;
@@ -54,21 +52,13 @@ namespace EmployeeManagement.Api.ModelMappers
                         default:
                             throw new InvalidEnumArgumentException();
                     }
-                    employees.Add(employee);
-                }
-                catch 
-                {
-                    throw;
-                }
-
+                    employees.Add(employee);              
             }
             return employees;
         }
         
         public  Dictionary <long,string> MapRemoveEmployeesJSONToDictionary (List<RemoveEmployeesJSON>removeEmployeesJSONList)
         {
-            try
-            {
                 Dictionary<long, string> registrationNumbersAndNames = new Dictionary<long, string>();
 
                 foreach(RemoveEmployeesJSON removeEmployeeJSON in removeEmployeesJSONList)
@@ -76,11 +66,6 @@ namespace EmployeeManagement.Api.ModelMappers
                     registrationNumbersAndNames.Add(removeEmployeeJSON.RegistrationNumber, removeEmployeeJSON.Name);
                 }
                 return registrationNumbersAndNames;
-            }            
-            catch
-            {
-                throw;
-            }
         }
     }
 }

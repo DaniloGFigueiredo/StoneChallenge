@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 namespace EmployeeManagement.Api.Controllers
 {
     [ApiConventionType(typeof(DefaultApiConventions))]
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class EmployeeManagementController : ControllerBase
     {
@@ -39,15 +40,14 @@ namespace EmployeeManagement.Api.Controllers
                     return Ok(employees);
                 }
                 else
-                {
-                    
+                {                 
                     return BadRequest(employeesJSON);
                 }           
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500,ex.Message);
+                return StatusCode(500,"Ocorreu um erro interno");//todo: mudar para resource
             }
         }
 
@@ -71,7 +71,7 @@ namespace EmployeeManagement.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, ex.Message);//todo: mudar para resource
             }
         }
 

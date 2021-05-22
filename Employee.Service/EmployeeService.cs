@@ -17,9 +17,8 @@ namespace EmployeeManagement.Service
         }
         public async Task<List<Employee>> AddMultipleEmployees(List<Employee> employees)
         {
-            try
-            {
-                foreach (Employee employee in employees)
+
+               foreach (Employee employee in employees)
                 {
                     Employee employeeInDB = await _employeeRepository.GetEmployeeByRegistrationNumberAndName(employee.RegistrationNumber, employee.Name);
                     if (employeeInDB != null)
@@ -28,11 +27,7 @@ namespace EmployeeManagement.Service
                     }
                 }
                 await _employeeRepository.CreateManyEmployees(employees);
-            }
-            catch
-            {
-                throw;
-            }
+      
             return employees;
         }
         public async Task<List<Employee>> RemoveMultipleEmployees(Dictionary<long, string> RegistrationNumbersAndNames)

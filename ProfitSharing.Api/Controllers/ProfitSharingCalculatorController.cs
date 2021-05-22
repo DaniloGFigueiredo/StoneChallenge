@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProfitSharing.Api.Controllers
 {
+    [ApiVersion("1.0")]
     [ApiConventionType(typeof(DefaultApiConventions))]
-    [Route("[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class ProfitSharingCalculatorController : ControllerBase
     {
@@ -36,7 +37,7 @@ namespace ProfitSharing.Api.Controllers
             catch(Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, ex.Message);//todo: mudar para resource
             }
         }
     }
