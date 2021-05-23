@@ -5,6 +5,7 @@ using ProfitSharing.Domain.Interfaces;
 using Polly;
 using System;
 using Microsoft.Extensions.Options;
+using System.Net.Http;
 
 namespace ProfitSharing.Service
 {
@@ -15,14 +16,16 @@ namespace ProfitSharing.Service
             services.Configure<EmployeeManagementClientSettings>(
             configuration.GetSection(nameof(EmployeeManagementClientSettings)));
             services.AddSingleton<IEmployeeManagementClientSettings>(sp => sp.GetRequiredService<IOptions<EmployeeManagementClientSettings>>().Value);
-            services.AddHttpClient<IEmployeeManagementClient, EmployeeManagementClient>(cfg => { cfg.Timeout = new TimeSpan(0, 0, 5);}).AddTransientHttpErrorPolicy(
+
+            var timeOutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(16);
+            services.AddHttpClient<IEmployeeManagementClient, EmployeeManagementClient>().AddTransientHttpErrorPolicy(
             p => p.WaitAndRetryAsync(new[]
             {
                 TimeSpan.FromSeconds(3),
                 TimeSpan.FromSeconds(5),
                 TimeSpan.FromSeconds(15)
-            })); ;
-          
+            })).AddPolicyHandler(timeOutPolicy); ;
+
             return services;         
         }
     }

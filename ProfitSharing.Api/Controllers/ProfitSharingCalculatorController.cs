@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProfitSharing.Api.Models.RequestJSONs;
 using ProfitSharing.Domain.DTOs;
 using ProfitSharing.Domain.Interfaces;
+using ProfitSharing.Domain.Resources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProfitSharing.Api.Controllers
@@ -25,7 +23,6 @@ namespace ProfitSharing.Api.Controllers
             _logger = logger;
         }
 
-
         [HttpPost("CalculateProfitSharing")]
         public async Task<IActionResult> Post(CalculateProfitSharingJSON calculateProfitSharingJSON)
         {
@@ -37,7 +34,7 @@ namespace ProfitSharing.Api.Controllers
             catch(Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);//todo: mudar para resource
+                return StatusCode(500, Messages.EXC000);
             }
         }
     }

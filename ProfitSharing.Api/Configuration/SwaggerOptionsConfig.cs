@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -51,7 +50,7 @@ namespace ProfitSharing.Api.Configuration
 
         static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
-            var info = new OpenApiInfo()
+            OpenApiInfo info = new OpenApiInfo()
             {
                 Title = "ProfitSharing.Api",
                 Version = description.ApiVersion.ToString(),
@@ -78,9 +77,9 @@ namespace ProfitSharing.Api.Configuration
                 return;
             }
 
-            foreach (var parameter in operation.Parameters)
+            foreach (OpenApiParameter parameter in operation.Parameters)
             {
-                var description = context.ApiDescription
+                ApiParameterDescription description = context.ApiDescription
                     .ParameterDescriptions
                     .First(p => p.Name == parameter.Name);
 

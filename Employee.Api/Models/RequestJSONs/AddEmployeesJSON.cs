@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
-using EmployeeManagement.Api.Resources;
+using EmployeeManagement.Domain.Resources;
 
 namespace EmployeeManagement.Api.ResquestJSONs
 {

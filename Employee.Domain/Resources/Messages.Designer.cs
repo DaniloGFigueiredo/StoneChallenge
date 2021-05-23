@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EmployeeManagement.Api.Resources {
+namespace EmployeeManagement.Domain.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace EmployeeManagement.Api.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EmployeeManagement.Api.Resources.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EmployeeManagement.Domain.Resources.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace EmployeeManagement.Api.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ocorreu um erro interno, consulte os logs para maiores informações.
+        /// </summary>
+        public static string EXC000 {
+            get {
+                return ResourceManager.GetString("EXC000", resourceCulture);
             }
         }
         
@@ -111,6 +120,15 @@ namespace EmployeeManagement.Api.Resources {
         public static string EXC006 {
             get {
                 return ResourceManager.GetString("EXC006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EXC007 - Não foi possivel mapear a area do funcionario.
+        /// </summary>
+        public static string EXC007 {
+            get {
+                return ResourceManager.GetString("EXC007", resourceCulture);
             }
         }
     }

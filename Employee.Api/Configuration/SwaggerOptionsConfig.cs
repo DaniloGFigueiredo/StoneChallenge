@@ -68,6 +68,7 @@ namespace EmployeeManagement.Api.Configuration
             return info;
         }
     }
+
     public class SwaggerDefaultValues : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
@@ -79,7 +80,7 @@ namespace EmployeeManagement.Api.Configuration
 
             foreach (OpenApiParameter parameter in operation.Parameters)
             {
-                var description = context.ApiDescription
+                ApiParameterDescription description = context.ApiDescription
                     .ParameterDescriptions
                     .First(p => p.Name == parameter.Name);
 

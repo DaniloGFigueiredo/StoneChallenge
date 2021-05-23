@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace EmployeeManagement.Api
 {
@@ -22,7 +21,7 @@ namespace EmployeeManagement.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-  
+
             services.AddLoggingConfiguration();
 
             services.ResolveDependencies(Configuration);

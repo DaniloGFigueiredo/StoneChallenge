@@ -27,16 +27,11 @@ namespace ProfitSharing.Infrastructure.Integrations.Clients
         {
             try
             {
-                using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(25));
-                using var responseStream = await _client.GetStreamAsync(URI, cancellationTokenSource.Token);
+                //using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(25));
+                using var responseStream = await _client.GetStreamAsync(URI);
                 List<EmployeeDTO> GetAllEmployees = await JsonSerializer.DeserializeAsync<List<EmployeeDTO>>(responseStream);
                 
                 return  GetAllEmployees;
-            }
-            catch (TaskCanceledException ce)
-            {
-                _logger.LogError(ce, $"O tempo de espera não pode ser maior que 25 segundos e portanto a requisição foi finalizada");
-                return null;
             }
             catch (Exception e)
             {

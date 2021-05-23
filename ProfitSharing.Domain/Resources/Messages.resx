@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EXC000" xml:space="preserve">
+    <value>Ocorreu um erro interno, consulte os logs para maiores informações</value>
+  </data>
   <data name="EXC001" xml:space="preserve">
-    <value>É necessário informar a matricula de todos os funcionarios e o valor precisa ser maior que zero</value>
-  </data>
-  <data name="EXC002" xml:space="preserve">
-    <value>É necessário informar os nomes dos funcionários. </value>
-  </data>
-  <data name="EXC003" xml:space="preserve">
-    <value>É necessário informar as áreas dos funcionários.</value>
-  </data>
-  <data name="EXC004" xml:space="preserve">
-    <value>É necessário informar os cargos do funcionarios.</value>
-  </data>
-  <data name="EXC005" xml:space="preserve">
-    <value>É necessario informar os salários bruto dos funcionários.</value>
-  </data>
-  <data name="EXC006" xml:space="preserve">
-    <value>É necessário infromar as datas de admissão dos funcionários.</value>
+    <value>EXC001 - Não há funcionários</value>
   </data>
 </root>
