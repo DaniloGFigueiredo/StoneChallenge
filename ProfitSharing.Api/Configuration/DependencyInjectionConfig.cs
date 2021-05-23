@@ -12,7 +12,7 @@ namespace ProfitSharing.Api.Configuration
         public static IServiceCollection ResolveDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IProfitSharingService, ProfitSharingService>();
-            services.ConfigureServices(configuration);
+            services.ConfigureClientServices(configuration);
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerOptionsConfig>();
 
             return services;

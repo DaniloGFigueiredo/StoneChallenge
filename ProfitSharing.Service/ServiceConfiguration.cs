@@ -11,8 +11,8 @@ namespace ProfitSharing.Service
 {
     public static class ServiceConfiguration
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)//todo: mudar nome
-        {
+        public static IServiceCollection ConfigureClientServices(this IServiceCollection services, IConfiguration configuration)
+        { 
             services.Configure<EmployeeManagementClientSettings>(
             configuration.GetSection(nameof(EmployeeManagementClientSettings)));
             services.AddSingleton<IEmployeeManagementClientSettings>(sp => sp.GetRequiredService<IOptions<EmployeeManagementClientSettings>>().Value);
