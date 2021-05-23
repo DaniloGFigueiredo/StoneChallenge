@@ -28,12 +28,11 @@ namespace EmployeeManagement.Api.Controllers
             _logger = logger;
         }
 
-
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("AddEmployees")]
-        public async Task <IActionResult> AddEmployees (List<AddEmployeesJSON> employeesJSON)
+        public async Task<IActionResult> AddEmployees(List<AddEmployeesJSON> employeesJSON)
         {
             try
             {
@@ -45,30 +44,29 @@ namespace EmployeeManagement.Api.Controllers
                     return Ok(employees);
                 }
                 else
-                {                 
+                {
                     return BadRequest(employeesJSON);
-                }           
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500,"Ocorreu um erro interno");//todo: mudar para resource
+                return StatusCode(500, "Ocorreu um erro interno");//todo: mudar para resource
             }
         }
-
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("RemoveEmployees")]
-        public async Task <IActionResult> RemoveEmployees(List<RemoveEmployeesJSON> removeEmployeesJSONs)
+        public async Task<IActionResult> RemoveEmployees(List<RemoveEmployeesJSON> removeEmployeesJSONs)
         {
             try
             {
                 TryValidateModel(removeEmployeesJSONs);
                 if (ModelState.IsValid)
                 {
-                    Dictionary<long,string> registrationNumbersAndNames = _mapper.MapRemoveEmployeesJSONToDictionary(removeEmployeesJSONs);
+                    Dictionary<long, string> registrationNumbersAndNames = _mapper.MapRemoveEmployeesJSONToDictionary(removeEmployeesJSONs);
                     List<Employee> removedEmployees = await _employeeService.RemoveMultipleEmployees(registrationNumbersAndNames);
                     return Ok(removedEmployees);
                 }
@@ -93,14 +91,13 @@ namespace EmployeeManagement.Api.Controllers
             try
             {
                 List<Employee> AllEmployees = await _employeeService.GetAllEmployees();
-                return  Ok(AllEmployees);
+                return Ok(AllEmployees);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 return StatusCode(500);
             }
         }
-
     }
 }
