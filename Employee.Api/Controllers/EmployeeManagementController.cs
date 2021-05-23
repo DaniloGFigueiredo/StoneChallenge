@@ -3,6 +3,7 @@ using EmployeeManagement.Api.Models.RequestJSONs;
 using EmployeeManagement.Api.ResquestJSONs;
 using EmployeeManagement.Domain.Entities;
 using EmployeeManagement.Domain.Interfaces;
+using EmployeeManagement.Domain.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -51,7 +52,7 @@ namespace EmployeeManagement.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, "Ocorreu um erro interno");//todo: mudar para resource
+                return StatusCode(500, Messages.EXC000);
             }
         }
 
@@ -78,7 +79,7 @@ namespace EmployeeManagement.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);//todo: mudar para resource
+                return StatusCode(500, Messages.EXC000);
             }
         }
 
@@ -96,7 +97,7 @@ namespace EmployeeManagement.Api.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500);
+                return StatusCode(500, Messages.EXC000);
             }
         }
     }

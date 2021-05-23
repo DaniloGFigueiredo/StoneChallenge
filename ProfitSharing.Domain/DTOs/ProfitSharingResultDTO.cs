@@ -23,6 +23,5 @@ namespace ProfitSharing.Domain.DTOs
 
         [JsonPropertyName("saldo_total_disponibilizado")]
         public string BalanceSum { get; set; }
-
     }
 }

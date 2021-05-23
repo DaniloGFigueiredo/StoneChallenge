@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using ProfitSharing.Domain.DTOs;
 using ProfitSharing.Domain.Interfaces;
+using ProfitSharing.Domain.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -24,7 +25,7 @@ namespace ProfitSharing.Service
         {
             List<EmployeeDTO> employees = await _employeeManagementClient.GetAllEmployees();
             if(employees == null)
-                throw new Exception("nao foi possivel obter a lista de funcionários");//todo: Mudar para resource
+                throw new Exception(Messages.EXC001);
 
             List<ProfitSharingProfileDTO> profitSharingProfileList = CreateProfitSharinfProfile(employees);
             ProfitSharingResultDTO profitSharingResultDTO = CalculateTotalToShare(profitSharingProfileList, availableSum);
