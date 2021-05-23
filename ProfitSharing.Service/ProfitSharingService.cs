@@ -19,6 +19,7 @@ namespace ProfitSharing.Service
         {
             _employeeManagementClient = employeeManagementClient;
         }
+
         public async Task<ProfitSharingResultDTO> CalculateProfitSharing(decimal availableSum)
         {
             List<EmployeeDTO> employees = await _employeeManagementClient.GetAllEmployees();

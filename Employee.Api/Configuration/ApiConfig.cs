@@ -14,9 +14,8 @@ namespace EmployeeManagement.Api.Configuration
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(1,0);
+                options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
-
             });
 
             services.AddVersionedApiExplorer(options =>
@@ -28,6 +27,6 @@ namespace EmployeeManagement.Api.Configuration
             });
 
             return services;
-        }  
+        }
     }
 }

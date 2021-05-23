@@ -27,7 +27,7 @@ namespace EmployeeManagement.Api.Configuration
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                foreach(var description in provider.ApiVersionDescriptions)
+                foreach (ApiVersionDescription description in provider.ApiVersionDescriptions)
                 {
                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                 }
@@ -48,19 +48,19 @@ namespace EmployeeManagement.Api.Configuration
             };
         }
 
-        static OpenApiInfo CreateInfoForApiVersion (ApiVersionDescription description)
+        static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
-            var info = new OpenApiInfo()
+            OpenApiInfo info = new OpenApiInfo()
             {
                 Title = "EmployeeManagement.Api",
                 Version = description.ApiVersion.ToString(),
                 Description = "Essa Api é responsável pela inserção, obtençao e remocão de funcionários",
-                Contact = new OpenApiContact() { Name= "Danilo Gutierrez Figueiredo", Email="danilogfigueiredo@gmail.com"},
-                TermsOfService= new Uri ("https://opensource.org/licenses/MIT"),
-                License = new OpenApiLicense() { Name="MIT", Url= new Uri("https://opensource.org/licenses/MIT") }
+                Contact = new OpenApiContact() { Name = "Danilo Gutierrez Figueiredo", Email = "danilogfigueiredo@gmail.com" },
+                TermsOfService = new Uri("https://opensource.org/licenses/MIT"),
+                License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
             };
 
-            if(description.IsDeprecated)
+            if (description.IsDeprecated)
             {
                 info.Description += "Está versão não está mais em uso";
             }
@@ -77,13 +77,13 @@ namespace EmployeeManagement.Api.Configuration
                 return;
             }
 
-            foreach (var parameter in operation.Parameters)
+            foreach (OpenApiParameter parameter in operation.Parameters)
             {
                 var description = context.ApiDescription
                     .ParameterDescriptions
                     .First(p => p.Name == parameter.Name);
 
-                var routeInfo = description.RouteInfo;
+                ApiParameterRouteInfo routeInfo = description.RouteInfo;
 
                 operation.Deprecated = OpenApiOperation.DeprecatedDefault;
 
