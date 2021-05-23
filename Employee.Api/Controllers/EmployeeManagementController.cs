@@ -87,7 +87,7 @@ namespace EmployeeManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         [Route("GetAllEmployees")]
-        public async Task<IActionResult> GetaAllEmployees()
+        public async Task<IActionResult> GetAllEmployees()
         {
             try
             {
